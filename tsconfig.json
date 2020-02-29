@@ -16,6 +16,10 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "allowSyntheticDefaultImports": true,
     "target": "esnext"
   },
   "exclude": ["node_modules"],
