@@ -13,13 +13,26 @@ export default () => {
         {register => (
           <Formik
             onSubmit={async data => {
-              const response = await register({
-                variables: {
-                  data
-                }
-              });
-              console.log(response);
-              Router.push("/check-email");
+              try {
+                const response = await register({
+                  variables: {
+                    data
+                  }
+                });
+                console.log(response);
+                Router.push("/check-email");
+              } catch (err) {
+                const errors: { [key: string]: string } = {};
+                err.graphQLErrors[0].validationErrors.forEach(
+                  (validationErr: any) => {
+                    Object.values(validationErr.constraints).forEach(
+                      (message: any) => {
+                        errors[validationErr.property] = message;
+                      }
+                    );
+                  }
+                );
+              }
             }}
             initialValues={{
               email: "",
