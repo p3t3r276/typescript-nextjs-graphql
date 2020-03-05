@@ -1,4 +1,6 @@
 import React from "react";
+import Router from "next/router";
+
 import Layout from "../components/Layout";
 import { Formik, Field } from "formik";
 import { InputField } from "../components/fields/InputField";
@@ -17,6 +19,7 @@ export default () => {
                 }
               });
               console.log(response);
+              Router.push("/check-email");
             }}
             initialValues={{
               email: "",
