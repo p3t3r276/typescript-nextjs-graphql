@@ -12,6 +12,8 @@ export default () => {
       <RegisterComponent>
         {register => (
           <Formik
+            validateOnBlur={false}
+            validateOnChange={false}
             onSubmit={async data => {
               try {
                 const response = await register({
