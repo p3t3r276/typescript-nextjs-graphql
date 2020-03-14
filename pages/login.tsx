@@ -4,7 +4,8 @@ import Router from "next/router";
 import Layout from "../components/Layout";
 import { Formik, Field } from "formik";
 import { InputField } from "../components/fields/InputField";
-import { LoginComponent } from "../generated/apolloComponents";
+import { LoginComponent, MeQuery } from "../generated/apolloComponents";
+import { meQuery } from "../graphql/user/queries/me";
 
 export default () => {
   return (
@@ -14,8 +15,16 @@ export default () => {
           <Formik
             onSubmit={async (data, { setErrors }) => {
               const response = await login({
-                variables: {
-                  ...data
+                variables: data,
+                update: (cache, { data }) => {
+                  if (!data || !data.login) return;
+
+                  cache.writeQuery<MeQuery>({
+                    query: meQuery,
+                    data: {
+                      me: data.login
+                    }
+                  });
                 }
               });
               console.log(response);
