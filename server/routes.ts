@@ -6,4 +6,6 @@
 //export const Link = routes.Link;
 
 const routes = require("next-routes");
-export default routes().add("confirm", "/user/confirm/:token");
+export default routes()
+  .add("confirm", "/user/confirm/:token")
+  .add("change-password", "/user/confirm/:token");
